@@ -21,6 +21,20 @@ app.post("/register", async (req, res) => {
   const { email, password, userRole } = req.body;
 
   try {
+    // Check if the user with the given email already exists
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (existingUser) {
+      console.log("User with this email already exists");
+      res.status(400).send("User with this email already exists");
+      return;
+    }
+
+    // If user doesn't exist, create a new user
     const hashedPassword = await bcrypt.hash(password, 10);
     await prisma.user.create({
       data: {
