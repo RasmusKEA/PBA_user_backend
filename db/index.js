@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 const dbConfig = {
-  host: "localhost",
+  host: "16.171.149.63",
   user: "user",
   password: "password",
   database: "searchagent",
